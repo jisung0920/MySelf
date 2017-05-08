@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    tools:context="com.example.jisung.myself.MainActivity">
+
+    <ListView
+        android:divider="#e67e7e"
+        android:dividerHeight="10dp"
+        android:id="@+id/list"
+        android:background="#e67e7e"
+        android:layout_weight="8"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"></ListView>
+    <Button
+        android:onClick="onClick"
+        android:id="@+id/addBnt"
+        android:text="추가"
+        android:background="#e36b6b"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+
+        android:layout_weight="1"
+        android:weightSum="3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="알람"
+            android:background="#e6a17e"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <Button
+            android:text="시간표"
+            android:background="#e67ea1"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <Button
+            android:text="타이머"
+            android:background="#f7d3d3"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>
