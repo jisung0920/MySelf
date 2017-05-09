@@ -4,15 +4,14 @@
     android:layout_height="match_parent"
 >
     <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_margin="1dp"
+        android:textColor="#fff"
         android:id="@+id/t1"
         android:text="todo"
         android:padding="10dp"
         android:gravity="center"
-        android:textSize="50dp"
-        android:background="#eea9a9"
+        android:textSize="40dp"
+        android:background="@color/col12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

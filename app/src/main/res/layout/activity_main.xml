@@ -8,14 +8,15 @@
     android:weightSum="10"
     tools:context="com.example.jisung.myself.MainActivity">
 
-    <ListView
-        android:divider="#e67e7e"
-        android:dividerHeight="10dp"
+    <GridView
+        android:numColumns="3"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="1dp"
         android:id="@+id/list"
         android:background="#e67e7e"
         android:layout_weight="8"
         android:layout_width="match_parent"
-        android:layout_height="0dp"></ListView>
+        android:layout_height="0dp"></GridView>
     <Button
         android:onClick="onClick"
         android:id="@+id/addBnt"

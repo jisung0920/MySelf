@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/col4">
     <TextView
         android:gravity="center"
         android:text="일정 명"
@@ -25,6 +26,7 @@
             android:layout_height="wrap_content"
             android:text="월"/>
         <Spinner
+            android:entries="@array/month"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></Spinner>
         <TextView
@@ -32,6 +34,7 @@
             android:layout_height="wrap_content"
             android:text="일"/>
         <Spinner
+            android:entries="@array/day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></Spinner>
         <TextView
@@ -39,6 +42,7 @@
             android:layout_height="wrap_content"
             android:text="시"/>
         <Spinner
+            android:entries="@array/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></Spinner>
     </LinearLayout>
@@ -82,6 +86,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
+        android:background="@color/col1"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
