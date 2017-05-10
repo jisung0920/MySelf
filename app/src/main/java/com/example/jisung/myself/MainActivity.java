@@ -1,5 +1,6 @@
 package com.example.jisung.myself;
 
+import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -48,6 +49,18 @@ public class MainActivity extends AppCompatActivity {
         if(v.getId()==R.id.addBnt){
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setView(diaV).show();
+        }
+        else if(v.getId()==R.id.togoTimer){
+            Intent intent = new Intent(this,FomodoroActivity.class);
+            startActivity(intent);
+        }
+        else if(v.getId()==R.id.togoAlarm){
+            Intent intent = new Intent(this,AlarmActivity.class);
+            startActivity(intent);
+        }
+        else if(v.getId()==R.id.togoSche){
+            Intent intent = new Intent(this,ScheduleActivity.class);
+            startActivity(intent);
         }
     }
 }

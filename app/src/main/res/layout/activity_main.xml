@@ -14,37 +14,45 @@
         android:verticalSpacing="1dp"
         android:id="@+id/list"
         android:background="#e67e7e"
-        android:layout_weight="8"
+        android:layout_weight="8.3"
         android:layout_width="match_parent"
         android:layout_height="0dp"></GridView>
-    <Button
+    <ImageButton
+        android:src="@drawable/addtodo"
         android:onClick="onClick"
         android:id="@+id/addBnt"
         android:text="추가"
         android:background="#e36b6b"
-        android:layout_weight="1"
+        android:layout_weight="0.9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout
 
-        android:layout_weight="1"
+        android:layout_weight="0.7"
         android:weightSum="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:text="알람"
+        <ImageButton
+            android:onClick="onClick"
+            android:src="@drawable/alarm"
+            android:id="@+id/togoAlarm"
             android:background="#e6a17e"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
-        <Button
-            android:text="시간표"
+        <ImageButton
+            android:text="일정"
+            android:src="@drawable/date"
+            android:onClick="onClick"
+            android:id="@+id/togoSche"
             android:background="#e67ea1"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
-        <Button
-            android:text="타이머"
+        <ImageButton
+            android:onClick="onClick"
+            android:src="@drawable/timer"
+            android:id="@+id/togoTimer"
             android:background="#f7d3d3"
             android:layout_weight="1"
             android:layout_width="wrap_content"
