@@ -26,11 +26,7 @@ public class MainActivity extends AppCompatActivity {
         todo.add(new toDo("멀미","asdf","afsd",true,false));
         todo.add(new toDo("컴구","asdf","afsd",true,false));
         todo.add(new toDo("디비","asdf","afsd",true,false));
-        todo.add(new toDo("데통","asdf","afsd",true,false));
-        todo.add(new toDo("데통","asdf","afsd",true,false));
-        todo.add(new toDo("데통","asdf","afsd",true,false));
-        todo.add(new toDo("데통","asdf","afsd",true,false));
-        todo.add(new toDo("데통","asdf","afsd",true,false));
+
         todo.add(new toDo("데통","asdf","afsd",true,false));
 
         adapter = new todoAdapter(this,todo);

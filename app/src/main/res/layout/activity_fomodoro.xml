@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/col4"
+    android:background="#c7e0f9"
 
     android:weightSum="5"
     tools:context="com.example.jisung.myself.FomodoroActivity">
@@ -71,20 +71,24 @@
         android:orientation="horizontal">
         <TextView
             android:layout_weight="1"
+            android:textColor="#000"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="count : "/>
         <TextView
+            android:textColor="#000"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 "/>
         <TextView
+            android:textColor="#000"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="turn"/>
         <TextView
+            android:textColor="#000"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

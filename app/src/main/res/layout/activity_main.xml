@@ -9,7 +9,7 @@
     tools:context="com.example.jisung.myself.MainActivity">
 
     <GridView
-        android:numColumns="3"
+        android:numColumns="2"
         android:horizontalSpacing="1dp"
         android:verticalSpacing="1dp"
         android:id="@+id/list"

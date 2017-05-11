@@ -4,8 +4,94 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical"
+    android:weightSum="4"
+    android:background="@color/col1"
     tools:context="com.example.jisung.myself.AlarmActivity">
+    <LinearLayout
+        android:background="@color/col2"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+
+            <TextView
+
+                android:gravity="center"
+                android:textSize="30dp"
+                android:layout_weight="0.5"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="하루 시작 "/>
+            <TimePicker
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:timePickerMode="spinner"></TimePicker>
+        <CheckBox
+
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="알림"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@color/col9"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:weightSum="2"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+
+        <TextView
+            android:gravity="center"
+            android:textSize="30dp"
+            android:layout_weight="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:text="하루 끝"/>
+        <TimePicker
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:timePickerMode="spinner"></TimePicker>
+        <CheckBox
+
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:text="알림"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_weight="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+            <CalendarView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </CalendarView>
+        </LinearLayout>
+        <ListView
+            android:id="@+id/list"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+        </ListView>
+    </LinearLayout>
+
 
 </LinearLayout>
