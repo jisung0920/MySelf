@@ -15,5 +15,6 @@
     <color name="col10">#f56f6f</color>
     <color name="col11">#d52929</color>
     <color name="col12">#e67eb2</color>
+    <color name="textColor">#fff</color>
 
 </resources>

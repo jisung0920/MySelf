@@ -4,17 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#e67e7e"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="com.example.jisung.myself.MainActivity">
 
     <GridView
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:numColumns="2"
         android:horizontalSpacing="1dp"
-        android:verticalSpacing="1dp"
+        android:verticalSpacing="5dp"
         android:id="@+id/list"
         android:background="#e67e7e"
         android:layout_weight="8.3"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="0dp"></GridView>
     <ImageButton
@@ -27,8 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <LinearLayout
-
-        android:layout_weight="0.7"
+        android:layout_weight="0.8"
         android:weightSum="3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

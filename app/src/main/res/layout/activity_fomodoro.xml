@@ -11,6 +11,7 @@
     tools:context="com.example.jisung.myself.FomodoroActivity">
 
     <TextView
+        android:id="@+id/today"
         android:text="2017년 05월 20일"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,17 +20,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="3"/>
-    <EditText
+    <TextView
+        android:text="25:00"
         android:textSize="40dp"
-        android:id="@+id/editText"
+        android:id="@+id/timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:textColor="@color/col7"
-        android:hint="22:55"
-        android:gravity="center"
+        android:textColor="#444"
         android:layout_gravity="center"
-        android:inputType="time"
         android:layout_margin="20dp"/>
 
     <LinearLayout
@@ -40,13 +38,16 @@
         android:layout_height="wrap_content">
         <ImageButton
             android:src="@drawable/timer"
-
+            android:onClick="onClick"
+            android:id="@+id/countBtn"
             android:layout_marginLeft="10dp"
             android:background="@color/col1"
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <ImageButton
+            android:id="@+id/stopBtn"
+            android:onClick="onClick"
             android:src="@drawable/stopicon"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
@@ -55,6 +56,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent" />
         <ImageButton
+            android:id="@+id/resetBtn"
+            android:onClick="onClick"
             android:layout_marginRight="10dp"
             android:src="@drawable/reseticon"
             android:background="@color/col3"
@@ -80,7 +83,8 @@
             android:layout_weight="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 "/>
+            android:text="0 "
+            android:id="@+id/countText"/>
         <TextView
             android:textColor="#000"
             android:layout_weight="1"
@@ -88,6 +92,7 @@
             android:layout_height="wrap_content"
             android:text="turn"/>
         <TextView
+            android:id="@+id/turnText"
             android:textColor="#000"
             android:layout_weight="1"
             android:layout_width="wrap_content"
@@ -96,6 +101,8 @@
 
     </LinearLayout>
     <ImageButton
+        android:onClick="onClick"
+        android:id="@+id/setBtn"
        android:src="@drawable/settingicon"
         android:background="@color/col4"
         android:layout_gravity="center"

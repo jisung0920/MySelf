@@ -5,14 +5,14 @@
 >
     <TextView
         android:layout_margin="1dp"
-        android:textColor="#fff"
+        android:textColor="#200f3a"
         android:id="@+id/t1"
         android:text="todo"
         android:padding="10dp"
         android:gravity="center"
         android:textSize="40dp"
-        android:background="#f15faa"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:background="@drawable/memo"
+        android:layout_width="150dp"
+        android:layout_height="150dp" />
 
 </LinearLayout>

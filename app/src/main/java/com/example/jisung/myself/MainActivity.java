@@ -7,8 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -41,10 +48,27 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     void onClick(View v){
-        View diaV = View.inflate(this,R.layout.add_todo,null);
+        final View diaV = View.inflate(this,R.layout.add_todo,null);
         if(v.getId()==R.id.addBnt){
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setView(diaV).show();
+            Button b1 = (Button)diaV.findViewById(R.id.addBnt);
+            final EditText title = (EditText)diaV.findViewById(R.id.todoName);
+            final DatePicker day = (DatePicker)diaV.findViewById(R.id.date);
+            final TimePicker time = (TimePicker)diaV.findViewById(R.id.time);
+            final CheckBox c1 = (CheckBox)diaV.findViewById(R.id.togoAlarm);
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(MainActivity.this, "hi", Toast.LENGTH_SHORT).show();
+                    String date = day.getYear()+"-"+day.getMonth()+"-"+day.getDayOfMonth();
+                    String t = time.getHour()+":"+time.getMinute();
+                    String name = title.getText().toString();
+                    Boolean check = c1.isChecked();
+                    todo.add(new toDo(name,date,t,false,check));
+                    adapter.notifyDataSetChanged();
+                }
+            });
         }
         else if(v.getId()==R.id.togoTimer){
             Intent intent = new Intent(this,FomodoroActivity.class);

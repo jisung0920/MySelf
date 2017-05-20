@@ -7,14 +7,14 @@ package com.example.jisung.myself;
 public class toDo {
     private String title;
     private String createDate;
-    private String deadline;
+    private String time;
     private Boolean clear;
     private Boolean alram;
 
-    public toDo(String title, String createDate, String deadline, Boolean clear, Boolean alram) {
+    public toDo(String title, String createDate, String time, Boolean clear, Boolean alram) {
         this.title = title;
         this.createDate = createDate;
-        this.deadline = deadline;
+        this.time = time;
         this.clear = clear;
         this.alram = alram;
     }
@@ -35,12 +35,12 @@ public class toDo {
         this.createDate = createDate;
     }
 
-    public String getDeadline() {
-        return deadline;
+    public String getTime() {
+        return time;
     }
 
-    public void setDeadline(String deadline) {
-        this.deadline = deadline;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public Boolean getClear() {

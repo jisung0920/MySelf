@@ -1,95 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/col4">
+    android:background="@color/col2"
+    android:orientation="vertical">
+
     <TextView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:text="일정 명"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="날짜"
-        android:gravity="center"/>
-    <LinearLayout
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="월"/>
-        <Spinner
-            android:entries="@array/month"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Spinner>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="일"/>
-        <Spinner
-            android:entries="@array/day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Spinner>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="시"/>
-        <Spinner
-            android:entries="@array/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Spinner>
-    </LinearLayout>
-    <TextView
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="기간"/>
-    <LinearLayout
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="월"/>
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Spinner>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="일"/>
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Spinner>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="시"/>
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></Spinner>
-    </LinearLayout>
+        android:textSize="30dp" />
 
-    <CheckBox
-        android:layout_gravity="center"
+    <EditText
+        android:id="@+id/todoName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="알람설정"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:text="날짜"
+        android:textSize="20dp" />
+
+
+
+
+
+<DatePicker
+    android:id="@+id/date"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:datePickerMode="spinner"
+    android:calendarViewShown="false"></DatePicker>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="시간"
+        android:textSize="20dp" />
+
+    <TimePicker
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:timePickerMode="spinner"></TimePicker>
+        <CheckBox
+            android:id="@+id/togoAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="알람설정" />
+
     <Button
+        android:id="@+id/addBnt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/col1"
         android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="추가"/>
+        android:text="추가" />
 
 </LinearLayout>
