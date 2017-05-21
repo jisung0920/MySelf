@@ -1,5 +1,6 @@
 package com.example.jisung.myself;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         final View diaV = View.inflate(this,R.layout.add_todo,null);
         if(v.getId()==R.id.addBnt){
             final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-            dialog.setView(diaV).show();
+            final DialogInterface mPopupDlg = dialog.setView(diaV).show();
             Button b1 = (Button)diaV.findViewById(R.id.addBnt);
             final EditText title = (EditText)diaV.findViewById(R.id.todoName);
             final DatePicker day = (DatePicker)diaV.findViewById(R.id.date);
@@ -67,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     Boolean check = c1.isChecked();
                     todo.add(new toDo(name,date,t,false,check));
                     adapter.notifyDataSetChanged();
+                    mPopupDlg.dismiss();
                 }
             });
         }

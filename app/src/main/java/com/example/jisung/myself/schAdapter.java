@@ -43,7 +43,7 @@ public class schAdapter extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(context);
 
             if(convertView==null);
-                convertView = inflater.inflate(R.layout.schedule_todo_list,null);
+                convertView = inflater.inflate(R.layout.timetable_item,null);
             TextView t1 = (TextView) convertView.findViewById(R.id.t1);
             t1.setText(data.get(position).getName());
             TextView dtime = (TextView)convertView.findViewById(R.id.totime);
