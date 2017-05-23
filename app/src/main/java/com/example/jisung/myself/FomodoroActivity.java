@@ -19,6 +19,8 @@ public class FomodoroActivity extends AppCompatActivity {
     int Ssec=0;
     private int min = Smin;
     private int sec = Ssec;
+    private int Rmin=Smin;
+    private int Rsec=Ssec;
 
     int MILLISINFUTURE = min*60000+sec*1000;
     int COUNT_DOWN_INTERVAL = 1000;
@@ -65,13 +67,25 @@ public class FomodoroActivity extends AppCompatActivity {
                 countTxt.setText(time);
             }
             public void onFinish() {
-                min = 5;
-                sec = 0;
-                Smin = min;
-                Ssec = sec;
-                MILLISINFUTURE = min*60000+sec*1000;
-                COUNT_DOWN_INTERVAL = 1000;
-                countTxt.setText(String.valueOf("Finish ."));
+                if (Rmin == 25) {
+                    min = 5;
+                    sec = 0;
+                    Rmin =Smin = min;
+                    Rsec =Ssec = sec;
+                    MILLISINFUTURE = min * 60000 + sec * 1000;
+                    COUNT_DOWN_INTERVAL = 1000;
+                    countTxt.setText(String.valueOf("05:00."));
+                }
+                else{
+                    min = 25;
+                    sec = 0;
+                    Smin = min;
+                    Ssec = sec;
+                    MILLISINFUTURE = min * 60000 + sec * 1000;
+                    COUNT_DOWN_INTERVAL = 1000;
+                    countTxt.setText(String.valueOf("25:00."));
+
+                }
             }
         };
     }
@@ -80,7 +94,7 @@ public class FomodoroActivity extends AppCompatActivity {
         if(v.getId() == R.id.countBtn){
             countDownTimer(MILLISINFUTURE,COUNT_DOWN_INTERVAL);
             min = Smin;
-            Ssec = sec;
+            sec = Ssec;
             countDownTimer.start();
 
         }
@@ -93,17 +107,13 @@ public class FomodoroActivity extends AppCompatActivity {
 
         }
         else if(v.getId()==R.id.resetBtn){
-        }
-        else if(v.getId()==R.id.setBtn){
+            countDownTimer.cancel();
+            countTxt.setText(Rmin+":00");
+            min = Rmin;
+            sec = Rsec;
 
         }
+
     }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        try{
-            countDownTimer.cancel();
-        } catch (Exception e) {}
-        countDownTimer=null;
-    }
+
 }

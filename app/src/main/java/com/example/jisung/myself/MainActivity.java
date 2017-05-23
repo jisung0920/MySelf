@@ -34,11 +34,17 @@ public class MainActivity extends AppCompatActivity {
         todo.add(new toDo("멀미","asdf","afsd",true,false));
         todo.add(new toDo("컴구","asdf","afsd",true,false));
         todo.add(new toDo("디비","asdf","afsd",true,false));
-
         todo.add(new toDo("데통","asdf","afsd",true,false));
 
         adapter = new todoAdapter(this,todo);
         list.setAdapter(adapter);
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, todo.get(position).getTime().toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -83,6 +89,10 @@ public class MainActivity extends AppCompatActivity {
         else if(v.getId()==R.id.togoSche){
             Intent intent = new Intent(this,ScheduleActivity.class);
             startActivity(intent);
+        }
+        else if(v.getId() ==R.id.backup){
+            Toast.makeText(this, "동기화 되었습니다.", Toast.LENGTH_SHORT).show();
+            //백업 코드
         }
     }
 }

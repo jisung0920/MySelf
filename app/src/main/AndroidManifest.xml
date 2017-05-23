@@ -3,6 +3,7 @@
     package="com.example.jisung.myself">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
         android:allowBackup="true"
@@ -26,14 +27,8 @@
                 <action android:name="AlarmRemove"></action>
             </intent-filter>
         </activity>
-        <receiver android:name=".AlarmReceiver" android:exported="true">
-            <intent-filter>
-                <action android:name="AlarmReceiver">
+        <receiver android:name=".BroadcastD"></receiver>
 
-                </action>
-
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

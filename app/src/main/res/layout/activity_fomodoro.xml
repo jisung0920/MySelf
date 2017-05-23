@@ -100,14 +100,5 @@
             android:text="0"/>
 
     </LinearLayout>
-    <ImageButton
-        android:onClick="onClick"
-        android:id="@+id/setBtn"
-       android:src="@drawable/settingicon"
-        android:background="@color/col4"
-        android:layout_gravity="center"
-        android:scaleType="fitXY"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text="시간 조절"/>
+\
 </LinearLayout>

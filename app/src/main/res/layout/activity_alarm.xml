@@ -74,7 +74,7 @@
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="20dp"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp">
@@ -94,38 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent">
         </ListView>
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/setAlarm"
-                android:text="setting"/>
-            <Button
-                android:text="remove"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/removeAlarm"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/button"
-                android:text="time set"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="new text"
-                android:id="@+id/textView"/>
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/repeatAlarm"
-                android:text="repeat test"/>
+
         </LinearLayout>
     </LinearLayout>
 
-
-</LinearLayout>
