@@ -56,7 +56,6 @@ public class ScheduleActivity extends AppCompatActivity {
         else if(v.getId()==R.id.insertBtn){
             final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
-
             daylist[0] = (ListView)V.findViewById(R.id.list0);
             daylist[1] = (ListView)V.findViewById(R.id.list1);
             daylist[2] = (ListView)V.findViewById(R.id.list2);

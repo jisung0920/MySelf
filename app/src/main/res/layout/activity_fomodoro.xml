@@ -59,7 +59,7 @@
             android:id="@+id/resetBtn"
             android:onClick="onClick"
             android:layout_marginRight="10dp"
-            android:src="@drawable/reseticon"
+            android:src="@drawable/studytime"
             android:background="@color/col3"
             android:text="초기화"
             android:layout_weight="1"
