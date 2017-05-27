@@ -151,12 +151,12 @@ public class FomodoroActivity extends AppCompatActivity {
                 for (int k = 0; k < 4; k++) {
                     publishProgress(-2);
                     for (int i = min * 60 + sec - 1; i > 0; i--) {
-                        if (isCancelled() == true) return null;//cancel가 true때 는 onCancelled로 간다.
+                        if (isCancelled() == true) return null;
                         try {
                             tmpM = i / 60;
                             tmpS = i % 60;
                             Thread.sleep(1000);
-                            publishProgress(i);//pubalicProgress(1,2,3,4)이렇게 할 수 있음)
+                            publishProgress(i);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -166,12 +166,12 @@ public class FomodoroActivity extends AppCompatActivity {
                     count++;
                     publishProgress(-1);
                     for (int i = res * 60 + resS - 1; i > 0; i--) {
-                        if (isCancelled() == true) return null;//cancel가 true때 는 onCancelled로 간다.
+                        if (isCancelled() == true) return null;
                         try {
                             tmpM = i / 60;
                             tmpS = i % 60;
                             Thread.sleep(1000);
-                            publishProgress(i);//pubalicProgress(1,2,3,4)이렇게 할 수 있음)
+                            publishProgress(i);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -180,7 +180,7 @@ public class FomodoroActivity extends AppCompatActivity {
                 }
                 publishProgress(-3);
                 for (int i = longrest*60; i > 0; i--) {
-                    if (isCancelled() == true) return null;//cancel가 true때 는 onCancelled로 간다.
+                    if (isCancelled() == true) return null;
                     try {
                         tmpM = i / 60;
                         tmpS = i % 60;
@@ -200,8 +200,8 @@ public class FomodoroActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {//-3
-            super.onProgressUpdate(values);//배열처럼 사용
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
             if(values[0]==-2)
                 t1.setTextColor(Color.BLACK);
             else if(values[0]==-1)
@@ -221,7 +221,7 @@ public class FomodoroActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(Void aVoid) {//-5
+        protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             t1.setTextColor(Color.BLACK);
             t1.setText("");
