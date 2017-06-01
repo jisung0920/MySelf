@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.evernote.client.android.EvernoteSession;
+
 import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,7 +61,8 @@ public class AlarmActivity extends AppCompatActivity {
                 if(isChecked){
                     int h = t1.getHour();
                     int m = t1.getMinute();
-                    Malarm.Alarm(h,m);
+
+                    Malarm.Alarm(h,m,1);
                 }
                 else{
                     Malarm.cancel();
@@ -73,7 +76,7 @@ public class AlarmActivity extends AppCompatActivity {
                 if(isChecked){
                     int h = t2.getHour();
                     int m = t2.getMinute();
-                    Nalarm.Alarm(h,m);
+                    Nalarm.Alarm(h,m,2);
                 }
                 else
                     Nalarm.cancel();
@@ -106,14 +109,15 @@ public class AlarmActivity extends AppCompatActivity {
             this.context = context;
 
         }
-        public void Alarm(int h,int m){
+        public void Alarm(int h,int m,int check){
             am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
             intent = new Intent(AlarmActivity.this, BroadcastD.class);
+            intent.putExtra("check",check);
             sender = PendingIntent.getBroadcast(AlarmActivity.this,0,intent,0);
             calendar = Calendar.getInstance();
             calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE),h,m,0);//time set
             am.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
-            am.cancel(sender);
+           // am.cancel(sender);
         }
         public void cancel(){
             am.cancel(sender);

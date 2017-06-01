@@ -70,7 +70,7 @@ public class ScheduleActivity extends AppCompatActivity {
             t1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    final View addV = View.inflate(V.getContext(),R.layout.add_timetable,null);
+                    final View addV = View.inflate(V.getContext(   ),R.layout.add_timetable,null);
                     TextView day = (TextView)addV.findViewById(R.id.day);
                     day.setText(t1.getText().toString());
                     final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());

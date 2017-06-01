@@ -3,7 +3,8 @@
     package="com.example.jisung.myself">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -20,6 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".FomodoroActivity" />
+        <activity
+            android:name="com.evernote.client.android.EvernoteOAuthActivity"
+            android:configChanges="orientation|keyboardHidden" />
         <activity android:name=".AlarmActivity" />
         <activity android:name=".ScheduleActivity" />
         <activity android:name=".removeActivity">
@@ -27,6 +31,7 @@
                 <action android:name="AlarmRemove"></action>
             </intent-filter>
         </activity>
+
         <receiver android:name=".BroadcastD"></receiver>
 
     </application>

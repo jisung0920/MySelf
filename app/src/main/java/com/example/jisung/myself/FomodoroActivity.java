@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.EditText;
@@ -50,6 +51,8 @@ public class FomodoroActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fomodoro);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         init();
         final EditText m1,m2,m3,s1,s2,e1;
         final Button b1;
@@ -274,6 +277,7 @@ public class FomodoroActivity extends AppCompatActivity {
         super.onDestroy();
         if (task1.getStatus() == AsyncTask.Status.RUNNING)
         {
+
             task1.cancel(true);
         }
         else
