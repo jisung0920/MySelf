@@ -10,15 +10,16 @@
     android:onClick="onClick"
     android:id="@+id/backup"
     android:layout_gravity="right"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
+    android:layout_width="60dp"
+    android:layout_height="40dp"
     android:background="@drawable/backup"/>
 <Button
-    android:text="인증"
+
     android:id="@+id/auth"
     android:onClick="onClick"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
+    android:background="@drawable/evernote"
+    android:layout_width="50dp"
+    android:layout_height="50dp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,7 +35,8 @@ import java.util.logging.SimpleFormatter;
 
 public class AlarmActivity extends AppCompatActivity {
 
-
+    SharedPreferences tmp;
+    SharedPreferences.Editor editor;
     private static int ONE_MINUTE = 5626;
     private AlarmManager alarmManager;
     TimePicker t1,t2;
@@ -51,6 +53,8 @@ public class AlarmActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
+        tmp = getSharedPreferences("test", MODE_PRIVATE);
+        editor = tmp.edit();
         init();
         final AlarmHATT Malarm = new AlarmHATT(getApplicationContext());
         final AlarmHATT Nalarm = new AlarmHATT(getApplicationContext());
@@ -79,6 +83,7 @@ public class AlarmActivity extends AppCompatActivity {
                     Nalarm.Alarm(h,m,2);
                 }
                 else
+
                     Nalarm.cancel();
             }
         });
@@ -134,6 +139,16 @@ public class AlarmActivity extends AppCompatActivity {
         t2 = (TimePicker)findViewById(R.id.night);
         c1 = (CheckBox)findViewById(R.id.moringCheck);
         c2 = (CheckBox)findViewById(R.id.nightCheck);
+        c1.setChecked(tmp.getBoolean("moring",false));
+        c2.setChecked(tmp.getBoolean("night",false));
+    }
 
+    @Override
+    public void onBackPressed() {
+        editor.putBoolean("moring",c1.isChecked());
+        editor.putBoolean("night", c2.isChecked());
+        editor.commit();
+
+        super.onBackPressed();
     }
 }

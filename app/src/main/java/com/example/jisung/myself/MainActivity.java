@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             b1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(MainActivity.this, "hi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "추가되었습니다", Toast.LENGTH_SHORT).show();
                     String date = day.getYear()+"-"+day.getMonth()+"-"+day.getDayOfMonth();
                     String t = time.getHour()+":"+time.getMinute();
                     String name = title.getText().toString();
@@ -139,6 +139,8 @@ public class MainActivity extends AppCompatActivity {
 
 //            if (!EvernoteSession.getInstance().isLoggedIn()) {
 //                return;
+
+
 //            }
 //
 //            EvernoteNoteStoreClient noteStoreClient = EvernoteSession.getInstance().getEvernoteClientFactory().getNoteStoreClient();
@@ -168,11 +170,8 @@ public class MainActivity extends AppCompatActivity {
             EvernoteNoteStoreClient noteStoreClient = EvernoteSession.getInstance().getEvernoteClientFactory().getNoteStoreClient();
 
             long now = System.currentTimeMillis();
-            // 현재시간을 date 변수에 저장한다.
             Date date = new Date(now);
-            // 시간을 나타냇 포맷을 정한다 ( yyyy/MM/dd 같은 형태로 변형 가능 )
             SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
-            // nowDate 변수에 값을 저장한다.
             String formatDate = sdfNow.format(date);
             String Etext="";
             for(int i=0;i<todo.size();i++)
@@ -184,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
             noteStoreClient.createNoteAsync(note, new EvernoteCallback<Note>() {
                 @Override
                 public void onSuccess(Note result) {
-                    Toast.makeText(getApplicationContext(), result.getTitle() + "에 동기화되었습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), result.getTitle() + "이름으로 동기화되었습니다.", Toast.LENGTH_LONG).show();
                 }
 
                 @Override

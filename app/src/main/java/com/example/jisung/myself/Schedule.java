@@ -1,10 +1,12 @@
 package com.example.jisung.myself;
 
+import java.io.Serializable;
+
 /**
  * Created by jisung on 2017-05-21.
  */
 
-public class Schedule {
+public class Schedule implements Serializable {
     private String time;
     private String name;
     private String locate;

@@ -3,6 +3,8 @@ package com.example.jisung.myself;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,64 +24,35 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class FomodoroActivity extends AppCompatActivity {
 
-    TextView today, countT, turnT;
+    TextView today, countT, turnT,totalText;
+    Button setting;
     Vibrator vide;
     MyTask task1;
-    int min = 15;
-    int sec = 0;
-    int res = 2,longrest=10;
+    int total=0;
+    SharedPreferences tmp;
+    SharedPreferences.Editor editor;
+    int min = 25,sec = 0,res = 5,longrest=10;
     int resS = 0;
     int tmpM, tmpS, count = 0, turn = 0, m = 4,nowM=0;
 
-//    int Smin=25;
-//    int Ssec=0;
-//    private int min = Smin;
-//    private int sec = Ssec;
-//    private int Rmin=Smin;
-//    private int Rsec=Ssec;
-
-//    int MILLISINFUTURE = min*60000+sec*1000;
-//    int COUNT_DOWN_INTERVAL = 1000;
-
-
     private TextView t1;
-    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fomodoro);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+        tmp = getSharedPreferences("test", MODE_PRIVATE);
+        editor = tmp.edit();
         init();
-        final EditText m1,m2,m3,s1,s2,e1;
-        final Button b1;
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        setting.callOnClick();
+        task1 = new MyTask();
 
-        final View setV = View.inflate(this,R.layout.time_set_view,null);
-        m1 = (EditText)setV.findViewById(R.id.m1);
-        m2 = (EditText)setV.findViewById(R.id.m2);
-        m3 = (EditText)setV.findViewById(R.id.m3);
-        s1 = (EditText)setV.findViewById(R.id.s1);
-        s2 = (EditText)setV.findViewById(R.id.s2);
-        b1 = (Button)setV.findViewById(R.id.b1);
-        e1 = (EditText)setV.findViewById(R.id.e1);
-        final DialogInterface exit = dialog.setView(setV).show();
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                min=Integer.parseInt(m1.getText().toString());
-                res=Integer.parseInt(m2.getText().toString());
-                longrest=Integer.parseInt(m3.getText().toString());
-                sec=Integer.parseInt(s1.getText().toString());
-                resS=Integer.parseInt(s2.getText().toString());
-                m = Integer.parseInt(e1.getText().toString());
-                t1.setText(min + ":"+sec);
-                exit.dismiss();
-            }
-        });
 
 
 
@@ -91,55 +64,17 @@ public class FomodoroActivity extends AppCompatActivity {
         turnT = (TextView) findViewById(R.id.turnText);
         t1 = (TextView) findViewById(R.id.timer);
         vide = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-
-
-
-        //timer.setFormat("25:00");
+        setting = (Button)findViewById(R.id.setBtn);
+        totalText = (TextView)findViewById(R.id.total);
+        total = tmp.getInt("total",0);
+        long now = System.currentTimeMillis();
+        Date date = new Date(now);
+        SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
+        String formatDate = sdfNow.format(date);
+        today.setText(formatDate.substring(0,4)+"년 "+formatDate.substring(5,7)+"월 "+formatDate.substring(8,10)+"일");
+        totalText.setText(total/60+"분");
     }
-//
-//    public void countDownTimer(int i,int j){
-//
-//        countDownTimer = new CountDownTimer(i, j) {
-//            public void onTick(long millisUntilFinished) {
-//                String time ="";
-//                if(min>0)
-//                    time= min+":";
-//                if(sec<10)
-//                    time +="0"+sec;
-//                else
-//                    time +=sec;
-//                if(sec!=0){
-//                    --sec;
-//                }
-//                else{
-//                    min--;
-//                    sec = 59;
-//                }
-//                countTxt.setText(time);
-//            }
-//            public void onFinish() {
-//                if (Rmin == 25) {
-//                    min = 5;
-//                    sec = 0;
-//                    Rmin =Smin = min;
-//                    Rsec =Ssec = sec;
-//                    MILLISINFUTURE = min * 60000 + sec * 1000;
-//                    COUNT_DOWN_INTERVAL = 1000;
-//                    countTxt.setText(String.valueOf("05:00."));
-//                }
-//                else{
-//                    min = 25;
-//                    sec = 0;
-//                    Smin = min;
-//                    Ssec = sec;
-//                    MILLISINFUTURE = min * 60000 + sec * 1000;
-//                    COUNT_DOWN_INTERVAL = 1000;
-//                    countTxt.setText(String.valueOf("25:00."));
-//
-//                }
-//            }
-//        };
-//    }
+
 
 
     private class MyTask extends AsyncTask<Integer, Integer, Void> {
@@ -163,7 +98,6 @@ public class FomodoroActivity extends AppCompatActivity {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-
                     }
                     vide.vibrate(3000);
                     count++;
@@ -195,10 +129,7 @@ public class FomodoroActivity extends AppCompatActivity {
                 }
                 vide.vibrate(3000);
                 turn++;
-
             }
-
-
             return null;
         }
 
@@ -218,7 +149,10 @@ public class FomodoroActivity extends AppCompatActivity {
             else
                 t1.setText(values[0] / 60 + ":" + values[0] % 60);
 
+            if(t1.getTextColors()==ColorStateList.valueOf(Color.BLACK))
+                total++;
             nowM++;
+            totalText.setText(total/60+"분");
             countT.setText(count+"");
             turnT.setText(turn+"");
         }
@@ -243,41 +177,51 @@ public class FomodoroActivity extends AppCompatActivity {
 
     public void onClick(View v) {
         if (v.getId() == R.id.countBtn) {
-//            countDownTimer(MILLISINFUTURE,COUNT_DOWN_INTERVAL);
-//            min = Smin;
-//            sec = Ssec;
-//            countDownTimer.start();
             task1 = new MyTask();
             task1.execute(0);
-
         } else if (v.getId() == R.id.stopBtn) {
-//            countDownTimer.cancel();
-//            Smin = min ;
-//            Ssec = sec;
-//            MILLISINFUTURE = min*60000+sec*1000;
-//            COUNT_DOWN_INTERVAL = 1000;
             task1.cancel(true);
-
-
         } else if (v.getId() == R.id.resetBtn) {
-//            countDownTimer.cancel();
-//            countTxt.setText(Rmin+":00");
-//            min = Rmin;
-//            sec = Rsec;
             nowM = nowM-turn*res;
             int nowS = nowM%60-resS;
             Toast.makeText(this, "학습시간 : "+nowM/60+"분 "+nowS+"초", Toast.LENGTH_SHORT).show();
+        } else if(v.getId()==R.id.setBtn){
+            final EditText m1,m2,m3,s1,s2,e1;
+            final Button b1;
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
-
+            final View setV = View.inflate(this,R.layout.time_set_view,null);
+            m1 = (EditText)setV.findViewById(R.id.m1);
+            m2 = (EditText)setV.findViewById(R.id.m2);
+            m3 = (EditText)setV.findViewById(R.id.m3);
+            s1 = (EditText)setV.findViewById(R.id.s1);
+            s2 = (EditText)setV.findViewById(R.id.s2);
+            b1 = (Button)setV.findViewById(R.id.b1);
+            e1 = (EditText)setV.findViewById(R.id.e1);
+            final DialogInterface exit = dialog.setView(setV).show();
+            b1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    min=Integer.parseInt(m1.getText().toString());
+                    res=Integer.parseInt(m2.getText().toString());
+                    longrest=Integer.parseInt(m3.getText().toString());
+                    sec=Integer.parseInt(s1.getText().toString());
+                    resS=Integer.parseInt(s2.getText().toString());
+                    m = Integer.parseInt(e1.getText().toString());
+                    t1.setText(min + ":"+sec);
+                    exit.dismiss();
+                }
+            });
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        editor.putInt("total",total);
+        editor.commit();
         if (task1.getStatus() == AsyncTask.Status.RUNNING)
         {
-
             task1.cancel(true);
         }
         else

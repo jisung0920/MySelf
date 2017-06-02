@@ -100,5 +100,31 @@
             android:text="0"/>
 
     </LinearLayout>
-\
+    <Button
+        android:layout_gravity="center"
+        android:id="@+id/setBtn"
+        android:onClick="onClick"
+        android:background="@drawable/settingicon"
+        android:layout_width="50dp"
+        android:layout_height="50dp" />
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="horizontal">
+        <TextView
+            android:text="total : "
+            android:textColor="#000"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="#000"
+            android:id="@+id/total"/>
+    </LinearLayout>
+
 </LinearLayout>
