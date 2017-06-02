@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -37,17 +38,11 @@ public class AlarmActivity extends AppCompatActivity {
 
     SharedPreferences tmp;
     SharedPreferences.Editor editor;
-    private static int ONE_MINUTE = 5626;
-    private AlarmManager alarmManager;
     TimePicker t1,t2;
     CheckBox c1,c2;
-    long now = System.currentTimeMillis();
-    Date date = new Date(now);
-
-
-
     ListView list;
-    CalendarView calendarView;
+
+
     ArrayList<toDo> todo = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +51,7 @@ public class AlarmActivity extends AppCompatActivity {
         tmp = getSharedPreferences("test", MODE_PRIVATE);
         editor = tmp.edit();
         init();
-        final AlarmHATT Malarm = new AlarmHATT(getApplicationContext());
-        final AlarmHATT Nalarm = new AlarmHATT(getApplicationContext());
+        final AlarmHATT alarm = new AlarmHATT(getApplicationContext());
 
         c1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -65,12 +59,10 @@ public class AlarmActivity extends AppCompatActivity {
                 if(isChecked){
                     int h = t1.getHour();
                     int m = t1.getMinute();
-
-                    Malarm.Alarm(h,m,1);
+                    alarm.Alarm(h,m,1,"아침",1);
                 }
                 else{
-                    Malarm.cancel();
-
+                    alarm.cancel(1);
                 }
             }
         });
@@ -80,11 +72,11 @@ public class AlarmActivity extends AppCompatActivity {
                 if(isChecked){
                     int h = t2.getHour();
                     int m = t2.getMinute();
-                    Nalarm.Alarm(h,m,2);
+                    alarm.Alarm(h,m,2,"하루 끝",2);
                 }
                 else
 
-                    Nalarm.cancel();
+                    alarm.cancel(2);
             }
         });
 
@@ -96,44 +88,48 @@ public class AlarmActivity extends AppCompatActivity {
         todo.add(new toDo("디비", "asdf", "afsd", true, true));
         todo.add(new toDo("데통", "asdf", "afsd", true, false));
         list.setAdapter(adapter);
-        calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
-            @Override
-            public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                adapter.notifyDataSetChanged();
-            }
-        });
+
 
     }
-    public class AlarmHATT{
+    public class AlarmHATT {
         private Context context;
-        AlarmManager  am;
+        AlarmManager am;
         Intent intent;
         PendingIntent sender;
         Calendar calendar;
-        public AlarmHATT(Context context){
+
+        public AlarmHATT(Context context) {
             this.context = context;
+        }
+
+        public void Alarm(int h, int m, int check, String title, int id) {
+            am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            intent = new Intent(AlarmActivity.this, BroadcastD.class);
+            intent.putExtra("title", title);
+            sender = PendingIntent.getBroadcast(AlarmActivity.this, id, intent, check);
+            calendar = Calendar.getInstance();
+            calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), h, m, 0);//time set
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
+        }
+
+        public void cancel(int id) {
+            if (sender != null) {
+                am = (AlarmManager) context.getApplicationContext().getSystemService(Context.ALARM_SERVICE);
+                intent = new Intent(AlarmActivity.this, BroadcastD.class);
+                sender = PendingIntent.getBroadcast(context.getApplicationContext(), id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                am.cancel(sender);
+                sender.cancel();
+                sender = null;
+                am = null;
+
+
+            }
 
         }
-        public void Alarm(int h,int m,int check){
-            am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-            intent = new Intent(AlarmActivity.this, BroadcastD.class);
-            intent.putExtra("check",check);
-            sender = PendingIntent.getBroadcast(AlarmActivity.this,0,intent,0);
-            calendar = Calendar.getInstance();
-            calendar.set(calendar.get(Calendar.YEAR),calendar.get(Calendar.MONTH),calendar.get(Calendar.DATE),h,m,0);//time set
-            am.set(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),sender);
-           // am.cancel(sender);
-        }
-        public void cancel(){
-            am.cancel(sender);
-        }
+
 
     }
-
-
-
     void init() {
-        calendarView = (CalendarView) findViewById(R.id.calen);
         list = (ListView) findViewById(R.id.list);
         t1 = (TimePicker)findViewById(R.id.moring);
         t2 = (TimePicker)findViewById(R.id.night);

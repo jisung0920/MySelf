@@ -43,6 +43,8 @@ public class ScheduleActivity extends AppCompatActivity {
     SchAdapterMain adapterMain;
     ImageButton delBtn;
     Boolean delCount = false;
+    View V;
+    TextView t1, t2, t3, t4, t5;
     int todayL=5;
 
     int dateSetting(){
@@ -83,18 +85,11 @@ public class ScheduleActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule);
-        list = (ListView) findViewById(R.id.list);
-        today = (TextView) findViewById(R.id.today);
-        delBtn = (ImageButton) findViewById(R.id.delBtn);
-        Log.d("listdata", "ggg");
-        for (int i = 0; i < 6; i++)
-            schData[i] = new ArrayList<Schedule>();
-
-        // init();
-        todayL = dateSetting();
 
 
-        schData[todayL].add(new Schedule("0900-1030", "DB", "afsd", 1));
+        init();
+        lordObject();
+
         adapterMain = new SchAdapterMain(this, schData[todayL]);
         list.setAdapter(adapterMain);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -113,32 +108,55 @@ public class ScheduleActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 
-
-
-    void init() {
-
+    void lordObject(){
         try {
-            for (int l = 0; l < 6; l++) {
-                for (int d = 0; schData[l].get(d) != null && d < 6; d++) {
-                    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(l + "" + d + "dg.ser"));
-                    schData[l].add((Schedule) ois.readObject());
+            for (int l = 0; l <schData.length; l++) {
+
+                    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(getFilesDir()+"SCD"+l+".ser"));
+                    schData[l] = (ArrayList<Schedule>) ois.readObject();
                     ois.close();
-                    Log.d("listdata", "" + l + "" + d + "" + schData[l].get(d));
-                }
+                    Log.d("listdata", "" +l);
+
             }
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+        for(int i=0;i<adapter.length;i++){
+            adapter[i]=new schAdapter(this,schData[i]);
+            daylist[i].setAdapter(adapter[i]);
+        }
+    }
 
+
+    void init() {
+        list = (ListView) findViewById(R.id.list);
+        today = (TextView) findViewById(R.id.today);
+        delBtn = (ImageButton) findViewById(R.id.delBtn);
+        V = View.inflate(this, R.layout.time_table, null);
+        daylist[0] = (ListView) V.findViewById(R.id.list0);
+        daylist[1] = (ListView) V.findViewById(R.id.list1);
+        daylist[2] = (ListView) V.findViewById(R.id.list2);
+        daylist[3] = (ListView) V.findViewById(R.id.list3);
+        daylist[4] = (ListView) V.findViewById(R.id.list4);
+        t1 = (TextView) V.findViewById(R.id.t1);
+        t2 = (TextView) V.findViewById(R.id.t2);
+        t3 = (TextView) V.findViewById(R.id.t3);
+        t4 = (TextView) V.findViewById(R.id.t4);
+        t5 = (TextView) V.findViewById(R.id.t5);
+        todayL = dateSetting();
+        for (int i = 0; i < 6; i++)
+            schData[i] = new ArrayList<Schedule>();
     }
 
     public void onClick(View v) {
 
-        final View V = View.inflate(this, R.layout.time_table, null);
+
         if (v.getId() == R.id.addBtn) {
 
             final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
@@ -155,7 +173,7 @@ public class ScheduleActivity extends AppCompatActivity {
             s_add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(ScheduleActivity.this, "눌림", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                     schData[todayL].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
                     exit.dismiss();
                     adapterMain.notifyDataSetChanged();
@@ -165,17 +183,6 @@ public class ScheduleActivity extends AppCompatActivity {
         } else if (v.getId() == R.id.insertBtn) {
             final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
-            daylist[0] = (ListView) V.findViewById(R.id.list0);
-            daylist[1] = (ListView) V.findViewById(R.id.list1);
-            daylist[2] = (ListView) V.findViewById(R.id.list2);
-            daylist[3] = (ListView) V.findViewById(R.id.list3);
-            daylist[4] = (ListView) V.findViewById(R.id.list4);
-            final TextView t1, t2, t3, t4, t5;
-            t1 = (TextView) V.findViewById(R.id.t1);
-            t2 = (TextView) V.findViewById(R.id.t2);
-            t3 = (TextView) V.findViewById(R.id.t3);
-            t4 = (TextView) V.findViewById(R.id.t4);
-            t5 = (TextView) V.findViewById(R.id.t5);
             t1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -193,7 +200,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     s_add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(ScheduleActivity.this, "눌림", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                             schData[0].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
                             exit.dismiss();
                             adapter[0].notifyDataSetChanged();
@@ -219,7 +226,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     s_add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(ScheduleActivity.this, "눌림", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                             schData[1].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
                             exit.dismiss();
                             adapter[1].notifyDataSetChanged();
@@ -244,7 +251,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     s_add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(ScheduleActivity.this, "눌림", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                             schData[2].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
                             exit.dismiss();
                             adapter[2].notifyDataSetChanged();
@@ -269,7 +276,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     s_add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(ScheduleActivity.this, "눌림", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                             schData[3].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
                             exit.dismiss();
                             adapter[3].notifyDataSetChanged();
@@ -294,7 +301,7 @@ public class ScheduleActivity extends AppCompatActivity {
                     s_add.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Toast.makeText(ScheduleActivity.this, "눌림", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
                             schData[4].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
                             exit.dismiss();
                             adapter[4].notifyDataSetChanged();
@@ -303,12 +310,7 @@ public class ScheduleActivity extends AppCompatActivity {
                 }
             });
 
-            for (int i = 0; i < 5; i++) {
-                schData[i].add(new Schedule("0900-1030", "DB", "afsd", 1));
-                adapter[i] = new schAdapter(this, schData[i]);
-                daylist[i].setAdapter(adapter[i]);
 
-            }
             daylist[0].setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -353,36 +355,30 @@ public class ScheduleActivity extends AppCompatActivity {
             } else {
                 delBtn.setImageResource(R.drawable.deletelist);
                 delCount = true;
+                Toast.makeText(this, "길게 누르면 삭제가 됩니다.", Toast.LENGTH_SHORT).show();
             }
 
         }
 
-    }
-
-    @Override
-    public void onBackPressed() {
-        Log.d("listdata", "");
-        super.onBackPressed();
-        try {
-
-            for (int l = 0; l < schData.length; l++) {
-                for (int d = 0; d < schData[l].size(); d++) {
-                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(l + "" + d + "dg.ser"));
-                    oos.writeObject(schData[l].get(d));
-                    oos.close();
-                    Log.d("listdata", "" + l + "" + d + "" + schData[l].get(d));
-                }
-            }
-
-        } catch (Exception e) {
-            // TODO: handle exception
-            e.printStackTrace();
-        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Log.d("listdata", "data save");
+        try {
+            for (int l = 0; l < schData.length; l++) {
+                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilesDir()+"SCD"+l+".ser",false));
+                    oos.writeObject(schData[l]);
+                    oos.close();
+                    Log.d("listdata", l + "save" );
+                }
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            Log.d("listdata","error");
+            e.printStackTrace();
+        }
     }
 
     public static String getDateDay(String date, String dateType) throws Exception {

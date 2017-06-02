@@ -71,30 +71,18 @@
             android:layout_height="0dp"
             android:layout_weight="0.5"
             android:text="알림"/>
+
     </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="20dp"
+    <ListView
+
+        android:layout_margin="20dp"
+        android:dividerHeight="10dp"
         android:layout_weight="2"
-        android:orientation="horizontal"
+        android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="0dp">
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-            <CalendarView
-                android:id="@+id/calen"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </CalendarView>
-        </LinearLayout>
-        <ListView
-            android:id="@+id/list"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent">
-        </ListView>
+    </ListView>
 
-        </LinearLayout>
-    </LinearLayout>
+
+</LinearLayout>
 

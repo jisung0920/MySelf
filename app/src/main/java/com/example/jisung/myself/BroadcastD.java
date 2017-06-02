@@ -23,27 +23,18 @@ public class BroadcastD extends BroadcastReceiver {
 
         Bundle bundle = intent.getExtras();
         int timer = bundle.getInt("check");
+        String title = bundle.getString("title","");
         Toast.makeText(context, "" + timer, Toast.LENGTH_SHORT).show();
-        if (timer == 1) {
+
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, AlarmActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
             Notification.Builder builder = new Notification.Builder(context);
-            builder.setSmallIcon(R.drawable.settingicon).setTicker("HETT").setWhen(System.currentTimeMillis())
-                    .setNumber(1).setContentTitle("아침").setContentText("설정")
-                    .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
-                    .setContentIntent(pendingIntent).setAutoCancel(true);
-            notificationManager.notify(1, builder.build());
-        }
-        else if(timer==2){
-            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, AlarmActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
-            Notification.Builder builder = new Notification.Builder(context);
-            builder.setSmallIcon(R.drawable.settingicon).setTicker("HETT").setWhen(System.currentTimeMillis())
-                    .setNumber(1).setContentTitle("저녁").setContentText("설정")
+            builder.setSmallIcon(R.drawable.alarmicon).setTicker("HETT").setWhen(System.currentTimeMillis())
+                    .setNumber(1).setContentTitle(title)
                     .setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE)
                     .setContentIntent(pendingIntent).setAutoCancel(true);
             notificationManager.notify(1, builder.build());
 
-        }
+
     }
 }
