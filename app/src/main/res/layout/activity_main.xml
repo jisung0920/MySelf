@@ -6,15 +6,9 @@
     android:layout_height="match_parent"
 
     tools:context="com.example.jisung.myself.MainActivity">
-<Button
-    android:onClick="onClick"
-    android:id="@+id/backup"
-    android:layout_gravity="right"
-    android:layout_width="60dp"
-    android:layout_height="60dp"
-    android:background="@drawable/backup"/>
-<Button
 
+<Button
+    android:layout_gravity="right"
     android:id="@+id/auth"
     android:onClick="onClick"
     android:background="@drawable/evernote"

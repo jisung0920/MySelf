@@ -10,6 +10,7 @@ public class toDo {
     private String time;
     private Boolean clear;
     private Boolean alram;
+    int id=0;
 
     public toDo(String title, String createDate, String time, Boolean clear, Boolean alram) {
         this.title = title;
@@ -17,6 +18,14 @@ public class toDo {
         this.time = time;
         this.clear = clear;
         this.alram = alram;
+    }
+    public toDo(String title, String createDate, String time, Boolean clear, Boolean alram,int id) {
+        this.title = title;
+        this.createDate = createDate;
+        this.time = time;
+        this.clear = clear;
+        this.alram = alram;
+        this.id = id;
     }
 
     public String getTitle() {

@@ -52,7 +52,6 @@ public class AlarmActivity extends AppCompatActivity {
         editor = tmp.edit();
         init();
         final AlarmHATT alarm = new AlarmHATT(getApplicationContext());
-
         c1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -83,10 +82,9 @@ public class AlarmActivity extends AppCompatActivity {
 
 
         final alramAdapter adapter = new alramAdapter(getApplicationContext(), todo);
-        todo.add(new toDo("멀미", "asdf", "afsd", true, false));
-        todo.add(new toDo("컴구", "asdf", "afsd", true, false));
-        todo.add(new toDo("디비", "asdf", "afsd", true, true));
-        todo.add(new toDo("데통", "asdf", "afsd", true, false));
+        todo.add(new toDo("멀미과제", "2017-06-04", "17:00", true, true));
+        todo.add(new toDo("컴구과제", "2017-06-07", "15:00", true, true));
+        //todo.add(new toDo("계절학기 등록", "2017-06-06", "12:00", true, true));
         list.setAdapter(adapter);
 
 
@@ -106,7 +104,7 @@ public class AlarmActivity extends AppCompatActivity {
             am = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             intent = new Intent(AlarmActivity.this, BroadcastD.class);
             intent.putExtra("title", title);
-            sender = PendingIntent.getBroadcast(AlarmActivity.this, id, intent, check);
+            sender = PendingIntent.getBroadcast(AlarmActivity.this, id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             calendar = Calendar.getInstance();
             calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE), h, m, 0);//time set
             am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
@@ -137,12 +135,21 @@ public class AlarmActivity extends AppCompatActivity {
         c2 = (CheckBox)findViewById(R.id.nightCheck);
         c1.setChecked(tmp.getBoolean("moring",false));
         c2.setChecked(tmp.getBoolean("night",false));
+        t1.setHour(tmp.getInt("moring_h",8));
+        t1.setMinute(tmp.getInt("moring_m",0));
+        t2.setHour(tmp.getInt("night_h",22));
+        t2.setMinute(tmp.getInt("night_m",0));
+
     }
 
     @Override
     public void onBackPressed() {
         editor.putBoolean("moring",c1.isChecked());
         editor.putBoolean("night", c2.isChecked());
+        editor.putInt("moring_h",t1.getHour());
+        editor.putInt("moring_m",t1.getMinute());
+        editor.putInt("night_h",t1.getHour());
+        editor.putInt("night_m",t1.getMinute());
         editor.commit();
 
         super.onBackPressed();

@@ -10,7 +10,7 @@
         android:text="todo"
         android:padding="10dp"
         android:gravity="center"
-        android:textSize="40dp"
+        android:textSize="25dp"
         android:background="@drawable/memo"
         android:layout_width="150dp"
         android:layout_height="150dp" />

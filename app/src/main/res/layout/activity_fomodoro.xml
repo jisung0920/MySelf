@@ -9,13 +9,39 @@
 
     android:weightSum="5"
     tools:context="com.example.jisung.myself.FomodoroActivity">
-
+<LinearLayout
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:layout_weight="0.3"
+    android:gravity="center"
+    android:background="#7ec3e6"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
     <TextView
+        android:text="Total : "
+        android:textColor="#000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="#000"
+        android:id="@+id/total"/>
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:textColor="#000"
         android:id="@+id/today"
         android:text="2017년 05월 20일"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"/>
+    />
+</LinearLayout>
+
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -114,17 +140,7 @@
         android:layout_height="wrap_content"
         android:gravity="right"
         android:orientation="horizontal">
-        <TextView
-            android:text="total : "
-            android:textColor="#000"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="#000"
-            android:id="@+id/total"/>
+
     </LinearLayout>
 
 </LinearLayout>
