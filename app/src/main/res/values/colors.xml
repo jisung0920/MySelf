@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="col1">#e67e7e</color>
+    <color name="col1">#efa2a2</color>
     <color name="col2">#e6a17e</color>
     <color name="col3">#e67ea1</color>
     <color name="col4">#f7d3d3</color>
@@ -15,6 +15,10 @@
     <color name="col10">#f56f6f</color>
     <color name="col11">#d52929</color>
     <color name="col12">#e67eb2</color>
-    <color name="textColor">#fff</color>
+    <color name="textColor">#eee</color>
+    <color name="textColor2">#333</color>
+    <color name="co">#e67e7e</color>
+    <color name="col13">#e36b6b</color>
+    <color name="col14">#efb5a2</color>
 
 </resources>

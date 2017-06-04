@@ -9,7 +9,7 @@
     android:background="@color/col1"
     tools:context="com.example.jisung.myself.AlarmActivity">
     <LinearLayout
-        android:background="@color/col2"
+        android:background="@color/col9"
         android:layout_marginTop="10dp"
         android:layout_weight="1"
         android:orientation="vertical"

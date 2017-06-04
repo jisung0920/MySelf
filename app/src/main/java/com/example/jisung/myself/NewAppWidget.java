@@ -40,8 +40,7 @@ public class NewAppWidget extends AppWidgetProvider {
 
         tmp = context.getSharedPreferences("test",MODE_PRIVATE);
 
-        String str = tmp.getString("first","멀미 과제");
-        Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
+        String str = tmp.getString("first"," ");
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId,str);
         }

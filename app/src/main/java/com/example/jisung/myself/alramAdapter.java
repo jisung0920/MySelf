@@ -53,7 +53,7 @@ public class alramAdapter extends BaseAdapter {
         TextView t2 = (TextView)convertView.findViewById(R.id.text2);
         CheckBox c1 = (CheckBox) convertView.findViewById(R.id.check1);
         t1.setText(data.get(position).getTitle());
-        t2.setText(data.get(position).getTime());
+        t2.setText(data.get(position).getCreateDate()+" "+data.get(position).getTime());
         c1.setChecked(data.get(position).getAlram());
 
 

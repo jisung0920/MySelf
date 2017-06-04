@@ -61,7 +61,13 @@ public class MainActivity extends AppCompatActivity {
         todo.add(new toDo("멀미과제", "2017-06-04", "17:00", true, false));
         todo.add(new toDo("컴구과제", "2017-06-07", "15:00", true, false));
         todo.add(new toDo("계절학기 등록", "2017-06-06", "12:00", true, false));
-        editor.putString("first", todo.get(0).getTitle());
+
+        String str ="";
+        for(int i=0;i<todo.size();i++)
+            str+="-"+todo.get(i).getTitle()+"\n";
+
+        editor.putString("first", str);
+        editor.commit();
         adapter.notifyDataSetChanged();
         Intent intent = new Intent(MainActivity.this,NewAppWidget.class);
         intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
