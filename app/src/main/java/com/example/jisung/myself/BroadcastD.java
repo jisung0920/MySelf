@@ -24,7 +24,7 @@ public class BroadcastD extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         int timer = bundle.getInt("check");
         String title = bundle.getString("title","");
-        Toast.makeText(context, "" + timer, Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "" + title, Toast.LENGTH_SHORT).show();
 
             NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(context, AlarmActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);

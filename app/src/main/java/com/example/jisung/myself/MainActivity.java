@@ -51,16 +51,15 @@ public class MainActivity extends AppCompatActivity {
     private static final String CONSUMER_SECRET = "2fd26f8b8197436b";
     private static final EvernoteSession.EvernoteService EVERNOTE_SERVICE = EvernoteSession.EvernoteService.SANDBOX;
     EvernoteSession mEvernoteSession;
+    manageDB db;
+    NewAppWidget widget;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        widget = new NewAppWidget();
         init();
-        todo.add(new toDo("멀미과제", "2017-06-04", "17:00", true, false));
-        todo.add(new toDo("컴구과제", "2017-06-07", "15:00", true, false));
-        todo.add(new toDo("계절학기 등록", "2017-06-06", "12:00", true, false));
 
         String str ="";
         for(int i=0;i<todo.size();i++)
@@ -84,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 alarm.cancel(todo.get(position).id);
+                db.delete(todo.get(position).id);
                 todo.remove(position);
                 adapter.notifyDataSetChanged();
                 return true;
@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void init() {
+        db = new manageDB(this);
+
+
         tmp = getSharedPreferences("test", MODE_PRIVATE);
         editor = tmp.edit();
         alarm = new AlarmHATT(getApplicationContext());
@@ -105,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 .asSingleton();
         Boolean init = tmp.getBoolean("init", false);
         if (!init) {
+            Toast.makeText(this, "인증을 하셔야 동기화를 할 수 있습니다.", Toast.LENGTH_SHORT).show();
             mEvernoteSession.authenticate(this);
             if (mEvernoteSession.isLoggedIn()) {
                 editor.putBoolean("init", true);
@@ -112,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         list = (GridView) findViewById(R.id.list);
-        todo = new ArrayList<toDo>();
+        todo =db.selecttoDo_M();
 
         adapter = new todoAdapter(this, todo);
         list.setAdapter(adapter);
@@ -157,13 +161,16 @@ public class MainActivity extends AppCompatActivity {
                     String t = time.getHour() + ":" + time.getMinute();
                     String name = title.getText().toString();
                     Boolean check = c1.isChecked();
-                    int id =day.getYear()+day.getMonth()+day.getDayOfMonth()+title.getId();
-                    todo.add(new toDo(name, date, t, false, check,id));
+                    int id =day.getYear()*10+day.getMonth()+day.getDayOfMonth()*9+day.getId();
+                    toDo item =new toDo(name, date, t, false, check,id);
+                    todo.add(item);
+                    db.inserttoDo(item);
                     if (check) {
                         alarm.Alarm(day.getMonth(), day.getDayOfMonth(), time.getHour(), time.getMinute(), name, todo.get(todo.size()-1).id);
                     }
                     adapter.notifyDataSetChanged();
                     mPopupDlg.dismiss();
+
                 }
             });
         } else if (v.getId() == R.id.togoTimer) {
@@ -224,6 +231,8 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("title", title);
             sender = PendingIntent.getBroadcast(context, id, intent, PendingIntent.FLAG_CANCEL_CURRENT);
             calendar = Calendar.getInstance();
+            Log.d("gettime",month+"/"+day+"/"+calendar.getTimeInMillis()+"");
+
             calendar.set(calendar.get(Calendar.YEAR), month, day, h, m, 0);//time set
             am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), sender);
         }

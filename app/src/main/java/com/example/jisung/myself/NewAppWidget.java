@@ -26,20 +26,19 @@ public class NewAppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
         views.setTextViewText(R.id.appwidget_text,str);
         Intent intent=new Intent(context, MainActivity.class);
-        PendingIntent pe=PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent pe=PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setOnClickPendingIntent(R.id.appwidget_text, pe);
 
+        appWidgetManager.updateAppWidget(appWidgetId, views);
 
         // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-
         tmp = context.getSharedPreferences("test",MODE_PRIVATE);
-
         String str = tmp.getString("first"," ");
         for (int appWidgetId : appWidgetIds) {
             updateAppWidget(context, appWidgetManager, appWidgetId,str);

@@ -33,9 +33,9 @@
             android:background="@color/col1"
 
             android:gravity="center"
-            android:horizontalSpacing="1dp"
+            android:horizontalSpacing="5dp"
             android:numColumns="2"
-            android:verticalSpacing="5dp"></GridView>
+            android:verticalSpacing="10dp"></GridView>
 
         <ImageButton
             android:id="@+id/addBnt"

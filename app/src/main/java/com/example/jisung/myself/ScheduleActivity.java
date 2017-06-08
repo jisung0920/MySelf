@@ -42,45 +42,46 @@ public class ScheduleActivity extends AppCompatActivity {
     schAdapter[] adapter = new schAdapter[5];
     SchAdapterMain adapterMain;
     ImageButton delBtn;
-    Boolean delCount = false,e = true;
-    View V;
-    TextView t1, t2, t3, t4, t5;
-    int todayL=5;
+    Boolean delCount = false;
 
-    int dateSetting(){
+    TextView t1, t2, t3, t4, t5;
+    int todayL = 5;
+
+    int dateSetting() {
         long now = System.currentTimeMillis();
         Date date = new Date(now);
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
         String formatDate = sdfNow.format(date);
-        String day ="";
+        String day = "";
         try {
-            today.setText(formatDate.substring(0, 4) + "년 " + formatDate.substring(5, 7) + "월 " + formatDate.substring(8, 10) + "일  "+getDateDay(formatDate,"yyyy/MM/dd")+"요일");
-            day = getDateDay(formatDate,"yyyy/MM/dd");
+            today.setText(formatDate.substring(0, 4) + "년 " + formatDate.substring(5, 7) + "월 " + formatDate.substring(8, 10) + "일  " + getDateDay(formatDate, "yyyy/MM/dd") + "요일");
+            day = getDateDay(formatDate, "yyyy/MM/dd");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        int result=5;
+        int result = 5;
         switch (day) {
             case "월":
-                result=0;
+                result = 0;
                 break;
             case "화":
-                result=1;
+                result = 1;
                 break;
             case "수":
-                result=2;
+                result = 2;
                 break;
             case "목":
-                result=3;
+                result = 3;
                 break;
             case "금":
-                result=4;
+                result = 4;
                 break;
             default:
-                result=5;
+                result = 5;
         }
         return result;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,14 +113,14 @@ public class ScheduleActivity extends AppCompatActivity {
 
     }
 
-    void lordObject(){
+    void lordObject() {
         try {
-            for (int l = 0; l <schData.length; l++) {
+            for (int l = 0; l < schData.length; l++) {
 
-                    ObjectInputStream ois = new ObjectInputStream(new FileInputStream(getFilesDir()+"SCD"+l+".ser"));
-                    schData[l] = (ArrayList<Schedule>) ois.readObject();
-                    ois.close();
-                    Log.d("listdata", "" +l);
+                ObjectInputStream ois = new ObjectInputStream(new FileInputStream(getFilesDir() + "SCD" + l + ".ser"));
+                schData[l] = (ArrayList<Schedule>) ois.readObject();
+                ois.close();
+                Log.d("listdata", "" + l);
 
             }
         } catch (IOException e) {
@@ -127,10 +128,7 @@ public class ScheduleActivity extends AppCompatActivity {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        for(int i=0;i<adapter.length;i++){
-            adapter[i]=new schAdapter(this,schData[i]);
-            daylist[i].setAdapter(adapter[i]);
-        }
+
     }
 
 
@@ -138,20 +136,10 @@ public class ScheduleActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.list);
         today = (TextView) findViewById(R.id.today);
         delBtn = (ImageButton) findViewById(R.id.delBtn);
-        V = View.inflate(this, R.layout.time_table, null);
-        daylist[0] = (ListView) V.findViewById(R.id.list0);
-        daylist[1] = (ListView) V.findViewById(R.id.list1);
-        daylist[2] = (ListView) V.findViewById(R.id.list2);
-        daylist[3] = (ListView) V.findViewById(R.id.list3);
-        daylist[4] = (ListView) V.findViewById(R.id.list4);
-        t1 = (TextView) V.findViewById(R.id.t1);
-        t2 = (TextView) V.findViewById(R.id.t2);
-        t3 = (TextView) V.findViewById(R.id.t3);
-        t4 = (TextView) V.findViewById(R.id.t4);
-        t5 = (TextView) V.findViewById(R.id.t5);
-        todayL = dateSetting();
+
         for (int i = 0; i < 6; i++)
             schData[i] = new ArrayList<Schedule>();
+        todayL = dateSetting();
     }
 
     public void onClick(View v) {
@@ -159,9 +147,9 @@ public class ScheduleActivity extends AppCompatActivity {
 
         if (v.getId() == R.id.addBtn) {
 
-            final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
+            final View addV = View.inflate(this, R.layout.add_timetable, null);
             TextView day = (TextView) addV.findViewById(R.id.day);
-            final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
+            final AlertDialog.Builder dialog2 = new AlertDialog.Builder(this);
             final EditText time, subject, locate;
             Button s_add;
             day.setText("");
@@ -181,175 +169,191 @@ public class ScheduleActivity extends AppCompatActivity {
             });
 
         } else if (v.getId() == R.id.insertBtn) {
-            if(e) {
-                final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
 
-                t1.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
-                        TextView day = (TextView) addV.findViewById(R.id.day);
-                        day.setText(t1.getText().toString());
-                        final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
-                        final EditText time, subject, locate;
-                        Button s_add;
-                        time = (EditText) addV.findViewById(R.id.s_time);
-                        subject = (EditText) addV.findViewById(R.id.s_subject);
-                        locate = (EditText) addV.findViewById(R.id.s_locate);
-                        s_add = (Button) addV.findViewById(R.id.s_add);
-                        final DialogInterface exit = dialog2.setView(addV).show();
-                        s_add.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
-                                schData[0].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
-                                exit.dismiss();
-                                adapter[0].notifyDataSetChanged();
-                            }
-                        });
+            final View V = View.inflate(ScheduleActivity.this, R.layout.time_table, null);
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            daylist[0] = (ListView) V.findViewById(R.id.list0);
+            daylist[1] = (ListView) V.findViewById(R.id.list1);
+            daylist[2] = (ListView) V.findViewById(R.id.list2);
+            daylist[3] = (ListView) V.findViewById(R.id.list3);
+            daylist[4] = (ListView) V.findViewById(R.id.list4);
+            t1 = (TextView) V.findViewById(R.id.t1);
+            t2 = (TextView) V.findViewById(R.id.t2);
+            t3 = (TextView) V.findViewById(R.id.t3);
+            t4 = (TextView) V.findViewById(R.id.t4);
+            t5 = (TextView) V.findViewById(R.id.t5);
 
-                    }
-                });
-                t2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
-                        TextView day = (TextView) addV.findViewById(R.id.day);
-                        day.setText(t2.getText().toString());
-                        final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
-                        final EditText time, subject, locate;
-                        Button s_add;
-                        time = (EditText) addV.findViewById(R.id.s_time);
-                        subject = (EditText) addV.findViewById(R.id.s_subject);
-                        locate = (EditText) addV.findViewById(R.id.s_locate);
-                        s_add = (Button) addV.findViewById(R.id.s_add);
-                        final DialogInterface exit = dialog2.setView(addV).show();
-                        s_add.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
-                                schData[1].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
-                                exit.dismiss();
-                                adapter[1].notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
-                t3.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
-                        TextView day = (TextView) addV.findViewById(R.id.day);
-                        day.setText(t3.getText().toString());
-                        final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
-                        final EditText time, subject, locate;
-                        Button s_add;
-                        time = (EditText) addV.findViewById(R.id.s_time);
-                        subject = (EditText) addV.findViewById(R.id.s_subject);
-                        locate = (EditText) addV.findViewById(R.id.s_locate);
-                        s_add = (Button) addV.findViewById(R.id.s_add);
-                        final DialogInterface exit = dialog2.setView(addV).show();
-                        s_add.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
-                                schData[2].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
-                                exit.dismiss();
-                                adapter[2].notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
-                t4.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
-                        TextView day = (TextView) addV.findViewById(R.id.day);
-                        day.setText(t4.getText().toString());
-                        final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
-                        final EditText time, subject, locate;
-                        Button s_add;
-                        time = (EditText) addV.findViewById(R.id.s_time);
-                        subject = (EditText) addV.findViewById(R.id.s_subject);
-                        locate = (EditText) addV.findViewById(R.id.s_locate);
-                        s_add = (Button) addV.findViewById(R.id.s_add);
-                        final DialogInterface exit = dialog2.setView(addV).show();
-                        s_add.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
-                                schData[3].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
-                                exit.dismiss();
-                                adapter[3].notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
-                t5.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
-                        TextView day = (TextView) addV.findViewById(R.id.day);
-                        day.setText(t5.getText().toString());
-                        final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
-                        final EditText time, subject, locate;
-                        Button s_add;
-                        time = (EditText) addV.findViewById(R.id.s_time);
-                        subject = (EditText) addV.findViewById(R.id.s_subject);
-                        locate = (EditText) addV.findViewById(R.id.s_locate);
-                        s_add = (Button) addV.findViewById(R.id.s_add);
-                        final DialogInterface exit = dialog2.setView(addV).show();
-                        s_add.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
-                                schData[4].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
-                                exit.dismiss();
-                                adapter[4].notifyDataSetChanged();
-                            }
-                        });
-                    }
-                });
-
-
-                daylist[0].setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });//4번 반복
-                daylist[1].setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                daylist[2].setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                daylist[3].setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                daylist[4].setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
-
-                    }
-                });
-                dialog.setView(V).show();
-                e=false;
+            for (int i = 0; i < adapter.length; i++) {
+                adapter[i] = new schAdapter(this, schData[i]);
+                daylist[i].setAdapter(adapter[i]);
             }
+
+
+            t1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
+                    TextView day = (TextView) addV.findViewById(R.id.day);
+                    day.setText(t1.getText().toString());
+                    final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
+                    final EditText time, subject, locate;
+                    Button s_add;
+                    time = (EditText) addV.findViewById(R.id.s_time);
+                    subject = (EditText) addV.findViewById(R.id.s_subject);
+                    locate = (EditText) addV.findViewById(R.id.s_locate);
+                    s_add = (Button) addV.findViewById(R.id.s_add);
+                    final DialogInterface exit = dialog2.setView(addV).show();
+                    s_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                            schData[0].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
+                            exit.dismiss();
+                            adapter[0].notifyDataSetChanged();
+                        }
+                    });
+
+                }
+            });
+            t2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
+                    TextView day = (TextView) addV.findViewById(R.id.day);
+                    day.setText(t2.getText().toString());
+                    final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
+                    final EditText time, subject, locate;
+                    Button s_add;
+                    time = (EditText) addV.findViewById(R.id.s_time);
+                    subject = (EditText) addV.findViewById(R.id.s_subject);
+                    locate = (EditText) addV.findViewById(R.id.s_locate);
+                    s_add = (Button) addV.findViewById(R.id.s_add);
+                    final DialogInterface exit = dialog2.setView(addV).show();
+                    s_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                            schData[1].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
+                            exit.dismiss();
+                            adapter[1].notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
+            t3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
+                    TextView day = (TextView) addV.findViewById(R.id.day);
+                    day.setText(t3.getText().toString());
+                    final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
+                    final EditText time, subject, locate;
+                    Button s_add;
+                    time = (EditText) addV.findViewById(R.id.s_time);
+                    subject = (EditText) addV.findViewById(R.id.s_subject);
+                    locate = (EditText) addV.findViewById(R.id.s_locate);
+                    s_add = (Button) addV.findViewById(R.id.s_add);
+                    final DialogInterface exit = dialog2.setView(addV).show();
+                    s_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                            schData[2].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
+                            exit.dismiss();
+                            adapter[2].notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
+            t4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
+                    TextView day = (TextView) addV.findViewById(R.id.day);
+                    day.setText(t4.getText().toString());
+                    final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
+                    final EditText time, subject, locate;
+                    Button s_add;
+                    time = (EditText) addV.findViewById(R.id.s_time);
+                    subject = (EditText) addV.findViewById(R.id.s_subject);
+                    locate = (EditText) addV.findViewById(R.id.s_locate);
+                    s_add = (Button) addV.findViewById(R.id.s_add);
+                    final DialogInterface exit = dialog2.setView(addV).show();
+                    s_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                            schData[3].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
+                            exit.dismiss();
+                            adapter[3].notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
+            t5.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final View addV = View.inflate(V.getContext(), R.layout.add_timetable, null);
+                    TextView day = (TextView) addV.findViewById(R.id.day);
+                    day.setText(t5.getText().toString());
+                    final AlertDialog.Builder dialog2 = new AlertDialog.Builder(V.getContext());
+                    final EditText time, subject, locate;
+                    Button s_add;
+                    time = (EditText) addV.findViewById(R.id.s_time);
+                    subject = (EditText) addV.findViewById(R.id.s_subject);
+                    locate = (EditText) addV.findViewById(R.id.s_locate);
+                    s_add = (Button) addV.findViewById(R.id.s_add);
+                    final DialogInterface exit = dialog2.setView(addV).show();
+                    s_add.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(ScheduleActivity.this, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                            schData[4].add(new Schedule(time.getText().toString(), subject.getText().toString(), locate.getText().toString(), 1));
+                            exit.dismiss();
+                            adapter[4].notifyDataSetChanged();
+                        }
+                    });
+                }
+            });
+
+
+            daylist[0].setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
+
+                }
+            });//4번 반복
+            daylist[1].setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            daylist[2].setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            daylist[3].setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            daylist[4].setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Toast.makeText(ScheduleActivity.this, schData[0].get(position).getLocate(), Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            dialog.setView(V).show();
+
 
         } else if (v.getId() == R.id.delBtn) {
             if (delCount) {
@@ -371,15 +375,15 @@ public class ScheduleActivity extends AppCompatActivity {
         Log.d("listdata", "data save");
         try {
             for (int l = 0; l < schData.length; l++) {
-                    ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilesDir()+"SCD"+l+".ser",false));
-                    oos.writeObject(schData[l]);
-                    oos.close();
-                    Log.d("listdata", l + "save" );
-                }
+                ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(getFilesDir() + "SCD" + l + ".ser", false));
+                oos.writeObject(schData[l]);
+                oos.close();
+                Log.d("listdata", l + "save");
+            }
 
         } catch (Exception e) {
             // TODO: handle exception
-            Log.d("listdata","error");
+            Log.d("listdata", "error");
             e.printStackTrace();
         }
     }
