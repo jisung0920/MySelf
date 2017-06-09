@@ -53,16 +53,16 @@ public class AlarmActivity extends AppCompatActivity {
         editor = tmp.edit();
         init();
         alarm = new AlarmHATT(getApplicationContext());
-//        if(c1.isChecked()){
-//            int h = t1.getHour();
-//            int m = t1.getMinute();
-//            alarm.Alarm(h,m,1,"아침",1);
-//        }
-//        if(c2.isChecked()){
-//            int h = t2.getHour();
-//            int m = t2.getMinute();
-//            alarm.Alarm(h,m,2,"하루 끝",2);
-//        }
+        if(c1.isChecked()){
+            int h = t1.getHour();
+            int m = t1.getMinute();
+            alarm.Alarm(h,m,"아침",0,1);
+        }
+        if(c2.isChecked()){
+            int h = t2.getHour();
+            int m = t2.getMinute();
+            alarm.Alarm(h,m,"하루 끝",2,1);
+        }
         c1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

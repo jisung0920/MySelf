@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(MainActivity.this, "추가되었습니다", Toast.LENGTH_SHORT).show();
-                    String date = day.getYear() + "-" + day.getMonth() + "-" + day.getDayOfMonth();
+                    String date = day.getYear() + "-" + (int)(day.getMonth()+1) + "-" + day.getDayOfMonth();
                     String t = time.getHour() + ":" + time.getMinute();
                     String name = title.getText().toString();
                     Boolean check = c1.isChecked();
@@ -185,8 +185,14 @@ public class MainActivity extends AppCompatActivity {
         } else if (v.getId() == R.id.auth) {
 
 
-            EvernoteNoteStoreClient noteStoreClient = EvernoteSession.getInstance().getEvernoteClientFactory().getNoteStoreClient();
+            if(!mEvernoteSession.isLoggedIn()){
+                mEvernoteSession.authenticate(this);
+                return ;
+            }
+            editor.putBoolean("init", true);
+            editor.commit();
 
+            EvernoteNoteStoreClient noteStoreClient = EvernoteSession.getInstance().getEvernoteClientFactory().getNoteStoreClient();
             long now = System.currentTimeMillis();
             Date date = new Date(now);
             SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy/MM/dd");
